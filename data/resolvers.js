@@ -24,11 +24,21 @@ const resolvers = {
       return author.getPosts();
     }
   },
+
   Post: {
     author(post) {
-      return View.findOne({postId: post.id}).then (view => view.views);
-    }
-  }
+      return post.getAuthor();
+    },
+    views(post) {
+      return View.findOne({ postId: post.id })
+             .then((view) => view.views);
+    },
+  },
+  // Post: {
+  //   author(post) {
+  //     return View.findOne({postId: post.id}).then (view => view.views);
+  //   }
+  // }
 };
 
 export default resolvers;
