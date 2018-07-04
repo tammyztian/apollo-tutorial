@@ -5,7 +5,19 @@ import casual from 'casual';
 import _ from 'lodash';
 import Mongoose from 'mongoose';
 
+import fetch from 'node-fetch';
+
 Mongoose.Promise = global.Promise;
+
+const FortuneCookie = {
+  getOne() {
+    return fetch('http://fortunecookieapi.herokuapp.com/v1/cookie')
+      .then(res => res.json())
+      .then(res => {
+        return res[0].fortune.message;
+      });
+  },
+};
 
 const mongo = Mongoose.connect('mongodb://localhost/views', {
   useMongoClient: true
@@ -60,4 +72,4 @@ db.sync({ force: true }).then(() => {
 const Author = db.models.author;
 const Post = db.models.post;
 
-export { Author, Post, View };
+export { Author, Post, View, FortuneCookie};

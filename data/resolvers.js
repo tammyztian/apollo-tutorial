@@ -1,5 +1,5 @@
 'use strict';
-import { Author, View } from './connectors';
+import { Author, View, FortuneCookie } from './connectors';
 //connectors is like knex/maybe mongoose later with MongoDB
 //connect database to the api calls (resolvers)
 
@@ -17,6 +17,9 @@ const resolvers = {
     },
     allAuthors() {
       return Author.findAll();
+    },
+    getFortuneCookie(){
+      return FortuneCookie.getOne();
     }
   },
   Author: {
@@ -34,11 +37,12 @@ const resolvers = {
              .then((view) => view.views);
     },
   },
+};
+  
   // Post: {
   //   author(post) {
   //     return View.findOne({postId: post.id}).then (view => view.views);
   //   }
   // }
-};
 
 export default resolvers;
